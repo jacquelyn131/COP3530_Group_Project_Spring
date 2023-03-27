@@ -65,8 +65,10 @@ Stretch goals
 
 Diagrams
   graph: 
-  ![graph](https://imgur.com/XtXrs3C)
-  
+
+  ![graph](https://i.imgur.com/XtXrs3C.jpg)
+
   level terrain map: 
-  ![level terrain map](https://imgur.com/RMArUeX)
+  ![level terrain map](https://i.imgur.com/TbjQlWf.jpg)
+
                       
