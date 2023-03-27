@@ -64,6 +64,9 @@ Stretch goals
   - find how often to call the program to optimize perfornmance.
 
 Diagrams
+  graph: 
   ![graph](https://imgur.com/XtXrs3C)
+  
+  level terrain map: 
   ![level terrain map](https://imgur.com/RMArUeX)
                       
