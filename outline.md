@@ -7,3 +7,15 @@ Concept: - So the idea is about zombies in a videogame trying to find the shorte
 - The position of the Player is a vertex and the position of each zombie is a vertex.
 
 - To make it interesting, the graph is a weighted graph and the weights are the speed that the zombie travels at on the path. In the level, it is raining, windy and muddy. So the speed of the zombie is fastest indoors, medium outdoors where it's paved, and slowest outdoors in the mud.
+
+Plan
+- Functionality: 
+- Input/Output examples: 
+- necessary classes: 
+  - required methods
+- stretch goals for extra things to add
+- relevant diagrams
+
+
+Funcitonality
+  - Given a weighted graph representing a terrain map in a game and two vertices player and zombie, calculate the shortest path from zombie to player.
