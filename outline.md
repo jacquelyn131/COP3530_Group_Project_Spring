@@ -17,5 +17,11 @@ Plan
 - relevant diagrams
 
 
-Funcitonality
+Functionality
   - Given a weighted graph representing a terrain map in a game and two vertices player and zombie, calculate the shortest path from zombie to player.
+  - (later, we can try optimizing the program to create minimal extra space or find how often to call our function to optimize performance)
+
+Input/Output examples
+  - Input: a weighted graph where each vertex represents a grid space on the terrain map of the game and a vertex representing the player positon and a vertex representing the zombie position. 
+  - For the weighted graph, the edges connect grid spaces that are adjacent on the terrain map, and the weights represent the amount of drag the zombie faces when trying to move along the path.
+  - The weights of the edges can have four values: wall_drag, indoor_drag, outdoor_drag, outdoor_mud_drag.
