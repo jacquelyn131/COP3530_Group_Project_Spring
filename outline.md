@@ -44,4 +44,18 @@ Input/Output examples
                   zombie = 1, player = 12
     Output: {1, 2, 3, 6, 9, 12}
 
+Necessary classes:
+  - Main class- test the program, 
+  - Vertex class- vertex of the graph
+  - 
+
+
+
+  Main class
+    - ``main()``
+    - ``findShortestPath()``
+  Vertex
+    - ``Vertex(val, List<LIst> adjList)``
+    - ``List<List> adjList // Two dimensional list with {adjacent vertex, weight} pairs``
+    - ``int val``
                       
