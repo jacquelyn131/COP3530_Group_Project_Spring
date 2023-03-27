@@ -23,5 +23,8 @@ Functionality
 
 Input/Output examples
   - Input: a weighted graph where each vertex represents a grid space on the terrain map of the game and a vertex representing the player positon and a vertex representing the zombie position. 
-  - For the weighted graph, the edges connect grid spaces that are adjacent on the terrain map, and the weights represent the amount of drag the zombie faces when trying to move along the path.
-  - The weights of the edges can have four values: wall_drag, indoor_drag, outdoor_drag, outdoor_mud_drag.
+  - For the weighted graph, the edges connect grid spaces that are adjacent on the terrain map, and the weights represent the amount of drag the zombie faces when trying to move along the path. For simplicity, the zombie can only move forward, backward, left and right from a given tile and not diagonally. So edges only connect adjacent vertices that are above, below, left and right of each other and not diagonally. 
+  - The weights of the edges can have four values: wall_drag, indoor_drag, outdoor_drag, outdoor_mud_drag, based on the drag the zombie experiences when trying to travel on that tile. 
+    - wall_drag: infinity- Walls the zombie cannot move through will have wall_drag of infinity so that the shortest path will avoid them
+    - indoor_drag: 1-  The zombie will move the fastest indoors and the drag will be the lowest.
+    - outdoor_drag: 
