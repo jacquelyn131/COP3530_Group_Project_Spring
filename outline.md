@@ -58,4 +58,12 @@ Necessary classes:
     - ``Vertex(val, List<LIst> adjList)``
     - ``List<List> adjList // Two dimensional list with {adjacent vertex, weight} pairs``
     - ``int val``
+
+Stretch goals
+  - optimize for minimum extra space created
+  - find how often to call the program to optimize perfornmance.
+
+Diagrams
+  ![graph](https://imgur.com/XtXrs3C)
+  ![level terrain map](https://imgur.com/RMArUeX)
                       
