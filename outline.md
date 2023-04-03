@@ -55,7 +55,7 @@ Necessary classes:
     - ``main()``
     - ``findShortestPath()``
   Vertex
-    - ``Vertex(val, List<LIst> adjList)``
+    - ``Vertex(val, List<List> adjList)``
     - ``List<List> adjList // Two dimensional list with {adjacent vertex, weight} pairs``
     - ``int val``
 
