@@ -47,17 +47,25 @@ Input/Output examples
 Necessary classes:
   - Main class- test the program, 
   - Vertex class- vertex of the graph
-  - 
+  - Graph class- contains a list of vertices
 
 
 
   Main class
     - ``main()``
     - ``findShortestPath()``
+    - ``dijkstra()``
   Vertex
-    - ``Vertex(val, List<List> adjList)``
+    - ``Vertex(int val, List<List> adjList)``
+    - ``Vertex(int val)``
     - ``List<List> adjList // Two dimensional list with {adjacent vertex, weight} pairs``
     - ``int val``
+  Graph
+    - ``Graph()``
+    - ``Graph(List<Vertex>)``
+    - ``List<Vertex>``
+    - ``void add(Vertex v) // method to add a Vertex to the graph``
+
 
 Stretch goals
   - optimize for minimum extra space created
