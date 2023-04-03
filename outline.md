@@ -60,6 +60,8 @@ Necessary classes:
     - ``Vertex(int val)``
     - ``List<List> adjList // Two dimensional list with {adjacent vertex, weight} pairs``
     - ``int val``
+    - ``int dist``
+    - ``Vertex path``
   Graph
     - ``Graph()``
     - ``Graph(List<Vertex>)``
