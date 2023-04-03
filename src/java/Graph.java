@@ -10,4 +10,9 @@ public class Graph {
     {
         this.vertexList = vertices;
     }
+
+    void add(Vertex v)
+    {
+        this.vertexList.add(v);
+    }
 }
