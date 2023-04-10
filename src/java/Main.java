@@ -21,6 +21,7 @@ public class Main {
         }
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
+        q.add(s);
         // while (!q.isEmpty)
         // {
                 // get the next Vertex to be set to known.
