@@ -14,7 +14,11 @@ public class Main {
     public void dijkstra(Graph g, Vertex s)
     {
         // Set the dist of all vertices to 0 and the path of all vertices to null.
-
+        for (int i = 0; i < g.vertexList.size(); ++i)
+        {
+            g.vertexList.get(i).dist = 0;
+            g.vertexList.get(i).path = null;
+        }
         // Create a priority queue of type Vertex
 
         // while (!q.isEmpty)
