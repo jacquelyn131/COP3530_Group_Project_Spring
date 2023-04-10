@@ -13,6 +13,6 @@ public class Vertex {
     Vertex(int v)
     {
         this.val = v;
-        this.adjList = new ArrayList<adjVertex>();
+        this.adjList = new ArrayList<AdjVertex>();
     }
 }
