@@ -22,10 +22,14 @@ public class Main {
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
         q.add(s);
-        // while (!q.isEmpty)
-        // {
+        while (!q.isEmpty)
+        {
+            Vertex v = q.poll();
+            v.known = true;
+            // for each Vertex adjacent to v:
                 // get the next Vertex to be set to known.
+                // if the path from v is the shortest path
                 // Do something.
-        // }
+        }
     }
 }

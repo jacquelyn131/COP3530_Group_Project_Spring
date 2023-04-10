@@ -7,6 +7,7 @@ public class AdjVertex { // Class to store adjacent vertex and weight together.
     {
         this.v = v;
         this.weight = w;
+        
     }
         
 }
