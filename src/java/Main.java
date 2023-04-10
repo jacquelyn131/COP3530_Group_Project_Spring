@@ -6,7 +6,7 @@ public class Main {
     {
         // Create and populate a graph for testing.
 
-        // Call dijkstra() of the new graph.
+        // Call dijkstra() on the new graph.
         
         // Print the path calculated by dijkstra().
     }
@@ -20,7 +20,7 @@ public class Main {
             g.vertexList.get(i).path = null;
         }
         // Create a priority queue of type Vertex
-
+        PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
         // while (!q.isEmpty)
         // {
                 // get the next Vertex to be set to known.
