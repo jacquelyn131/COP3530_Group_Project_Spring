@@ -13,6 +13,14 @@ public class Vertex {
     Vertex(int v)
     {
         this.val = v;
+<<<<<<< Updated upstream
         this.adjList = new ArrayList<adjVertex>();
+=======
+        this.adjList = new ArrayList<AdjVertex>();
+    }
+    public int compareTo(Vertex vert)
+    {
+        return (this.dist - vert.dist);
+>>>>>>> Stashed changes
     }
 }
