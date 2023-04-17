@@ -1,3 +1,4 @@
+import java.lang.Comparable;
 import java.util.*;
 public class Vertex {
     int val;
@@ -13,10 +14,14 @@ public class Vertex {
     Vertex(int v)
     {
         this.val = v;
+
+        
+
         this.adjList = new ArrayList<adjVertex>();
         this.adjList = new ArrayList<AdjVertex>();
     }
     public int compareTo(Vertex vert)
+
     {
         return (this.dist - vert.dist);
     }

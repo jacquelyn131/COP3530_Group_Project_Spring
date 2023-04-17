@@ -11,6 +11,7 @@ public class Main {
                                 , {3,1}, {5,Integer.MAX_VALUE}, {9,1}, {4,4}, {8,2}, {10,4}
                                 , {5,1}, {7,2}, {9,Integer.MAX_VALUE}, {11,2}, {7,4}};
 
+
         /**
         Example input: graph = {{1: {2:2}, {4:4}},
                             {2: {1:2}, {3:1}, {5:1}},
@@ -31,15 +32,18 @@ public class Main {
         // Call dijkstra() on the new graph.
         dijkstra(gameGraph, vertList);
         System.out.println(dijkstra());
+
         // Print the path calculated by dijkstra().
     }
 
     public void dijkstra(Graph g, Vertex s)
     {
+
         int counter = 0;
         int minDistance = Integer.MAX_VALUE;
         boolean known = true;
         s.path = s;
+
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < g.vertexList.size(); ++i)
@@ -49,6 +53,7 @@ public class Main {
         }
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
+
         queue(q, known);
         while (counter < g.vertices.size())
         {
@@ -65,6 +70,7 @@ public class Main {
             s.known = true;//sets vertex to known
             counter ++;
         }
+
         // {
                 // get the next Vertex to be set to known.
                 // Do something.
