@@ -4,14 +4,15 @@ public class Main {
 
     public static void main(String[] args)
     {
+        
         // Create and populate a graph for testing.
-        Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+        /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
                                 , {3,1}, {5,Integer.MAX_VALUE}, {9,1}, {4,4}, {8,2}, {10,4}
                                 , {5,1}, {7,2}, {9,Integer.MAX_VALUE}, {11,2}, {7,4}};
 
-
+        */
         /**
         Example input: graph = {{1: {2:2}, {4:4}},
                             {2: {1:2}, {3:1}, {5:1}},
@@ -27,11 +28,11 @@ public class Main {
                   zombie = 1, player = 12
         Output: {1, 2, 3, 6, 9, 12}
         */
-        Graph gameGraph = new Graph(vertList, adjVertList);
+        //Graph gameGraph = new Graph(vertList, adjVertList);
 
         // Call dijkstra() on the new graph.
-        dijkstra(gameGraph, vertList);
-        System.out.println(dijkstra());
+        //dijkstra(gameGraph, vertList);
+        //System.out.println(dijkstra());
 
         // Print the path calculated by dijkstra().
     }
@@ -50,6 +51,7 @@ public class Main {
         {
             g.vertexList.get(i).dist = 0;
             g.vertexList.get(i).path = null;
+            g.vertexList.get(i).known = false;
         }
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
@@ -57,21 +59,30 @@ public class Main {
             {
                 return v1.dist - v2.dist;
             }
-        }
-        queue(q, known);
-        while (counter < g.vertices.size())
+        });
+
+        q = queue(q, known, g); // Populate the priority queue.
+        while (counter < g.vertexList.size())
         {
-            for(int i = 0; i < g.vertices.size(); i++)
+            Vertex v = q.poll();
+            for (int j = 0; j < v.adjList.size(); ++j) // for each vertex adjacent to v
             {
-                if(g.vertices.get(i).dist < Integer.MAX_VALUE)// if the distance is less than infinity 
+                // check if w needs to be updated.
+                Vertex w = v.adjList.get(j).v;
+
+                int cost = v.adjList.get(j).weight; // cost of edge from v to w
+                
+                if (cost < w.dist)
                 {
-                    if(known && g.vertices.get(i).dist < minDistance)//if vertex is known and distance is less than the minDistance
-                    {
-                        minDistance = g.vertices.get(i).dist;//makes current distance the minimum distance of vertex at g.vertexList.get(i)
-                    }
+                    w.dist = cost + v.dist; // Update w
+                    w.path = v;
                 }
+
+
             }
-            s.known = true;//sets vertex to known
+
+
+            v.known = true;//sets vertex to known
             counter ++;
         }
 
@@ -81,7 +92,7 @@ public class Main {
         // }
     }
 
-    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k )
+    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
     {
         for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
         {
