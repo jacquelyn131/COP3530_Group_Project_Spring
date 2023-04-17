@@ -52,8 +52,12 @@ public class Main {
             g.vertexList.get(i).path = null;
         }
         // Create a priority queue of type Vertex
-        PriorityQueue<Vertex> q = new PriorityQueue<Vertex>();
-
+        PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
+            public int compare(Vertex v1, Vertex v2)
+            {
+                return v1.dist - v2.dist;
+            }
+        }
         queue(q, known);
         while (counter < g.vertices.size())
         {
