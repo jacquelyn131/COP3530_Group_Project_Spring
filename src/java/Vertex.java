@@ -2,11 +2,12 @@ import java.lang.Comparable;
 import java.util.*;
 public class Vertex {
     int val;
-    List<adjVertex> adjList;
-    int dist;
+    List<AdjVertex> adjList;
+    public int dist;
     Vertex path;
+    boolean known;
 
-    Vertex(int v, List<adjVertex> adjList)
+    Vertex(int v, List<AdjVertex> adjList)
     {
         this.val = v;
         this.adjList = adjList;
@@ -14,15 +15,11 @@ public class Vertex {
     Vertex(int v)
     {
         this.val = v;
-
-        
-
-        this.adjList = new ArrayList<adjVertex>();
         this.adjList = new ArrayList<AdjVertex>();
     }
-    public int compareTo(Vertex vert)
-
+    /*public static int compareTo(Vertex vert)
     {
-        return (this.dist - vert.dist);
-    }
+        int theDistance = dist;
+        return (theDistance - vert.dist);
+    }*/
 }
