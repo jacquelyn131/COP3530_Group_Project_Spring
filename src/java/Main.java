@@ -6,6 +6,13 @@ public class Main {
     {
         
         // Create and populate a graph for testing.
+        Vertex v1 = new Vertex(1);
+        Vertex v2 = new Vertex(2);
+        Vertex v3 = new Vertex(3);
+        Vertex v4 = new Vertex(4);
+        Vertex v5 = new Vertex(5);
+        Vertex v6 = new Vertex(6);
+        Vertex v7 = new Vertex(7);
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
