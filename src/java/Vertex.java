@@ -2,7 +2,7 @@ import java.lang.Comparable;
 import java.util.*;
 public class Vertex {
     int val;
-    List<AdjVertex> adjList;
+    public List<AdjVertex> adjList;
     public int dist;
     Vertex path;
     boolean known;
