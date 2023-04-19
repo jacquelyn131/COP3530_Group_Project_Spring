@@ -224,10 +224,10 @@ public class Main {
             copy.path = currentPV.path;
             copy.known = currentPV.known;
 
-            if(currentPV.known)
+            /* if(currentPV.known)
             {
                 continue;
-            }
+            }*/
             
             pq.add(copy);// adds current vertex to PriorityQueue q
         }
