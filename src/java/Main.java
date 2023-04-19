@@ -209,9 +209,11 @@ public class Main {
                 }
             }
             q = updateQDist(q, qAsList); // update the distances in q.
-            v.known = true;//sets vertex to known
+            v.known = true;// sets vertex to known
             counter ++;
         }
+        // update g
+        
     }
 
     public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
@@ -227,7 +229,7 @@ public class Main {
             /* if(currentPV.known)
             {
                 continue;
-            }*/
+            }*/     
             
             pq.add(copy);// adds current vertex to PriorityQueue q
         }
