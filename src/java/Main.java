@@ -171,7 +171,7 @@ public class Main {
             {
                 continue;
             }
-            g.vertexList.get(i).dist = 0;
+            g.vertexList.get(i).dist = Integer.MAX_VALUE;
             g.vertexList.get(i).path = null;
             g.vertexList.get(i).known = false;
         }
@@ -185,8 +185,8 @@ public class Main {
             }
         });
 
-        //q = queue(q, known, g); // Populate the priority queue.
-        q.add(s);
+        q = queue(q, known, g); // Populate the priority queue.
+        // q.add(s);
         while (!q.isEmpty())
         {
             Vertex v = q.poll();
@@ -199,8 +199,8 @@ public class Main {
                 
                 if (cost + v.dist < w.dist)
                 {
-                    w.dist = cost + v.dist; // Update w
-                    w.path = v;
+                    v.adjList.get(j).v.dist = cost + v.dist; // Update w
+                    v.adjList.get(j).v.path = v;
                 }
                 if (!w.known && !q.contains(w))
                 {
@@ -226,16 +226,28 @@ public class Main {
         for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
         {
             Vertex currentPV = g.vertexList.get(i);
+            Vertex copy = new Vertex(currentPV.val, currentPV.adjList); // create a copy so these vertex objects can get updated independently of g.vertList.
+            copy.dist = currentPV.dist;
+            copy.path = currentPV.path;
+            copy.known = currentPV.known;
 
             if(currentPV.known)
             {
                 continue;
             }
             
-            pq.add(currentPV);//adds current vertex to PriorityQueue q
+            pq.add(copy);//adds current vertex to PriorityQueue q
         }
 
         return pq;//returns PriorityQueue
+    }
+    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArayLIst<Vertex> aList)
+    {
+        // create a new priortiy queue.
+        // for each vertex in q
+        // check if Vertex needs to be updated
+        // update dist of Vertex and add to newQ
+        return 
     }
     static void printPath(Vertex v)
     {
