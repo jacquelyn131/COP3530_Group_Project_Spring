@@ -53,7 +53,14 @@ public class Main {
         v5.adjList.add(av56);
         v5.adjList.add(av58);
         // v6 adjacency
-        Adj
+        AdjVertex v65 = new AdjVertex(v5, Integer.MAX_VALUE);
+        AdjVertex v63 = new AdjVertex(v3, 1);
+        AdjVertex v69 = new AdjVertex(v9, 1);
+        v6.adjList.add(v65);
+        v6.adjList..add(v63);
+        v6.adjList.add(v69);
+        // v7 adjacency
+        
 
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
