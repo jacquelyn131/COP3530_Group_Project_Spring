@@ -13,6 +13,14 @@ public class Main {
         Vertex v5 = new Vertex(5);
         Vertex v6 = new Vertex(6);
         Vertex v7 = new Vertex(7);
+        Vertex v8 = new Vertex(8);
+        Vertex v9 = new Vertex(9);
+        Vertex v10 = new Vertex(10);
+        Vertex v11 = new Vertex(11);
+        Vertex v12 = new Vertex(12);
+        // v1 adjacency
+        
+        v1.adjList = new ArrayList<AdjVertex
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
