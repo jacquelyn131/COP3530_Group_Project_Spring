@@ -103,7 +103,6 @@ public class Main {
         ArrayList<Vertex> vertList = new ArrayList<Vertex>();
         vertList.add(v1);
         vertList.add(v2);
-        vertList.add(v2);
         vertList.add(v3);
         vertList.add(v4);
         vertList.add(v5);
@@ -152,12 +151,7 @@ public class Main {
         System.out.println(currVertex.val);
         currVertex = currVertex.path;
         // while the current vertex is not equal to zombie position;
-        while(currVertex.val != zombiePos)
-        {
-            // print current vertex.
-            System.out.println(currVertex.val);
-            // current vertex = current vertex.path
-        }
+        printPath(currVertex);
 
     }
 
@@ -167,16 +161,22 @@ public class Main {
         int counter = 0;
         int minDistance = Integer.MAX_VALUE;
         boolean known = true;
-        s.path = s;
+        s.path = null;
 
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < g.vertexList.size(); ++i)
         {
+            if (g.vertexList.get(i).val == s.val)
+            {
+                continue;
+            }
             g.vertexList.get(i).dist = 0;
             g.vertexList.get(i).path = null;
             g.vertexList.get(i).known = false;
         }
+        s.path = null;
+        s.dist = 0;
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
             public int compare(Vertex v1, Vertex v2)
@@ -185,8 +185,9 @@ public class Main {
             }
         });
 
-        q = queue(q, known, g); // Populate the priority queue.
-        while (counter < g.vertexList.size())
+        //q = queue(q, known, g); // Populate the priority queue.
+        q.add(s);
+        while (!q.isEmpty())
         {
             Vertex v = q.poll();
             for (int j = 0; j < v.adjList.size(); ++j) // for each vertex adjacent to v
@@ -196,10 +197,14 @@ public class Main {
 
                 int cost = v.adjList.get(j).weight; // cost of edge from v to w
                 
-                if (cost < w.dist)
+                if (cost + v.dist < w.dist)
                 {
                     w.dist = cost + v.dist; // Update w
                     w.path = v;
+                }
+                if (!w.known && !q.contains(w))
+                {
+                    q.add(w);
                 }
 
 
@@ -231,6 +236,14 @@ public class Main {
         }
 
         return pq;//returns PriorityQueue
+    }
+    static void printPath(Vertex v)
+    {
+        if (v.path != null)
+        {
+            printPath(v.path);
+        }
+        System.out.println(v.val);
     }
 }
 
