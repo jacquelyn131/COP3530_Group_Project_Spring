@@ -53,15 +53,69 @@ public class Main {
         v5.adjList.add(av56);
         v5.adjList.add(av58);
         // v6 adjacency
-        AdjVertex v65 = new AdjVertex(v5, Integer.MAX_VALUE);
-        AdjVertex v63 = new AdjVertex(v3, 1);
-        AdjVertex v69 = new AdjVertex(v9, 1);
-        v6.adjList.add(v65);
-        v6.adjList..add(v63);
-        v6.adjList.add(v69);
+        AdjVertex av65 = new AdjVertex(v5, Integer.MAX_VALUE);
+        AdjVertex av63 = new AdjVertex(v3, 1);
+        AdjVertex av69 = new AdjVertex(v9, 1);
+        v6.adjList.add(av65);
+        v6.adjList.add(av63);
+        v6.adjList.add(av69);
         // v7 adjacency
-        
+        AdjVertex av74 = new AdjVertex(v4, 4);
+        AdjVertex av78 = new AdjVertex(v8, 2);
+        AdjVertex av710 = new AdjVertex(v10, 4);
+        v7.adjList.add(av74);
+        v7.adjList.add(av78);
+        v7.adjList.add(av710);
+        // v8 adjacency
+        AdjVertex av87 = new AdjVertex(v7, 2);
+        AdjVertex av85 = new AdjVertex(v5, 1);
+        AdjVertex av89 = new AdjVertex(v9, Integer.MAX_VALUE);
+        AdjVertex av811 = new AdjVertex(v11, 2);
+        v8.adjList.add(av87);
+        v8.adjList.add(av85);
+        v8.adjList.add(av89);
+        v8.adjList.add(av811);
+        // v9 adjacency
+        AdjVertex av98 = new AdjVertex(v8, Integer.MAX_VALUE);
+        AdjVertex av96 = new AdjVertex(v6, 1);
+        AdjVertex av912 = new AdjVertex(v12, 2);
+        v9.adjList.add(av98);
+        v9.adjList.add(av96);
+        v9.adjList.add(av912);
+        // v10 adjacency
+        AdjVertex av107 = new AdjVertex(v7, 4);
+        AdjVertex av1011 = new AdjVertex(v11, 2);
+        v10.adjList.add(av107);
+        v10.adjList.add(av1011);
+        // v11 adjacency
+        AdjVertex av1110 = new AdjVertex(v10, 2);
+        AdjVertex av118 = new AdjVertex(v8, 2);
+        AdjVertex av1112 = new AdjVertex(v12, 2);
+        v11.adjList.add(av1110);
+        v11.adjList.add(av118);
+        v11.adjList.add(av1112);
+        // v12 adjacency
+        AdjVertex av1211 = new AdjVertex(v11,2);
+        AdjVertex av129 = new AdjVertex(v9, 2);
+        v12.adjList.add(av1211);
+        v12.adjList.add(av129);
+        // making hte graph
+        ArrayList<Vertex> vertList = new ArrayList<Vertex>();
+        vertList.add(v1);
+        vertList.add(v2);
+        vertList.add(v2);
+        vertList.add(v3);
+        vertList.add(v4);
+        vertList.add(v5);
+        vertList.add(v6);
+        vertList.add(v7);
+        vertList.add(v8);
+        vertList.add(v9);
+        vertList.add(v10);
+        vertList.add(v11);
+        vertList.add(v12);
 
+        Graph g = new Graph(vertList);
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
@@ -86,14 +140,28 @@ public class Main {
         */
         //Graph gameGraph = new Graph(vertList, adjVertList);
 
-        // Call dijkstra() on the new graph.
-        //dijkstra(gameGraph, vertList);
-        //System.out.println(dijkstra());
+        // Call dijkstra() on the new graph, assume zombie is at position v1.
+        dijkstra(g, v1);
+        
+        // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
+        // print value of player vertex.
+        int zombiePos = 1;
+        int playerPos = 12;
+        System.out.println("Path: ");
+        Vertex currVertex = g.vertexList.get(playerPos - 1);
+        System.out.println(currVertex.val);
+        currVertex = currVertex.path;
+        // while the current vertex is not equal to zombie position;
+        while(currVertex.val != zombiePos)
+        {
+            // print current vertex.
+            System.out.println(currVertex.val);
+            // current vertex = current vertex.path
+        }
 
-        // Print the path calculated by dijkstra().
     }
 
-    public void dijkstra(Graph g, Vertex s)
+    public static void dijkstra(Graph g, Vertex s)
     {
 
         int counter = 0;
