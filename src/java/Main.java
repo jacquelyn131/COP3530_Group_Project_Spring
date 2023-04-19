@@ -19,8 +19,42 @@ public class Main {
         Vertex v11 = new Vertex(11);
         Vertex v12 = new Vertex(12);
         // v1 adjacency
-        
-        v1.adjList = new ArrayList<AdjVertex
+        AdjVertex av12 = new AdjVertex(v2, 2);
+        AdjVertex av14 = new AdjVertex(v2, 4);
+        v1.adjList = new ArrayList<AdjVertex>();
+        v1.adjList.add(av12);
+        v1.adjList.add(av14);
+        // v2 adjacency
+        AdjVertex av21 = new AdjVertex(v1, 2);
+        AdjVertex av23 = new AdjVertex(v3, 1);
+        AdjVertex av25 = new AdjVertex(v5, 1);
+        v2.adjList.add(av21);
+        v2.adjList.add(av23);
+        v2.adjList.add(av25);
+        // v3 adjacency
+        AdjVertex av32 = new AdjVertex(v2, 1);
+        AdjVertex av36 = new AdjVertex(v6, 1);
+        v3.adjList.add(av32);
+        v3.adjList.add(av36);
+        // v4 adjacency
+        AdjVertex av41 = new AdjVertex(v1, 4);
+        AdjVertex av45 = new AdjVertex(v5, 2);
+        AdjVertex av47 = new AdjVertex(v7, 4);
+        v4.adjList.add(av41);
+        v4.adjList.add(av45);
+        v4.adjList.add(av47);
+        // v5 adjacency
+        AdjVertex av54 = new AdjVertex(v4, 2);
+        AdjVertex av52 = new AdjVertex(v2, 1);
+        AdjVertex av56 = new AdjVertex(v6, Integer.MAX_VALUE);
+        AdjVertex av58 = new AdjVertex(v8, 1);
+        v5.adjList.add(av54);
+        v5.adjList.add(av52);
+        v5.adjList.add(av56);
+        v5.adjList.add(av58);
+        // v6 adjacency
+        Adj
+
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
