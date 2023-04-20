@@ -162,7 +162,7 @@ public class Main {
         int minDistance = Integer.MAX_VALUE;
         boolean known = true;
         s.path = null;
-
+        ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < g.vertexList.size(); ++i)
@@ -201,24 +201,19 @@ public class Main {
                 {
                     v.adjList.get(j).v.dist = cost + v.dist; // Update w
                     v.adjList.get(j).v.path = v;
+                    qAsList.add(v.adjList.get(j).v);
                 }
                 if (!w.known && !q.contains(w))
                 {
                     q.add(w);
                 }
-
-
             }
-
-
-            v.known = true;//sets vertex to known
+            q = updateQDist(q, qAsList); // update the distances in q.
+            v.known = true;// sets vertex to known
             counter ++;
         }
-
-        // {
-                // get the next Vertex to be set to known.
-                // Do something.
-        // }
+        // update g
+        
     }
 
     public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
@@ -231,23 +226,52 @@ public class Main {
             copy.path = currentPV.path;
             copy.known = currentPV.known;
 
-            if(currentPV.known)
+            /* if(currentPV.known)
             {
                 continue;
-            }
+            }*/     
             
-            pq.add(copy);//adds current vertex to PriorityQueue q
+            pq.add(copy);// adds current vertex to PriorityQueue q
         }
 
-        return pq;//returns PriorityQueue
+        return pq;// returns PriorityQueue
     }
-    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArayLIst<Vertex> aList)
+    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
     {
         // create a new priortiy queue.
+        PriorityQueue<Vertex> newQ = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
+            public int compare(Vertex v1, Vertex v2)
+            {
+                return v1.dist - v2.dist;
+            }
+        });
         // for each vertex in q
-        // check if Vertex needs to be updated
-        // update dist of Vertex and add to newQ
-        return 
+        while (!q.isEmpty())
+        {
+            Vertex ogVert = q.poll();
+            
+            // check if Vertex needs to be updated
+            for (int i = 0; i < aList.size(); ++i)
+            {
+                if (aList.get(i).val == ogVert.val)
+                {
+                    if (aList.get(i).dist != ogVert.dist)
+                    {
+                        // update dist of Vertex and add to newQ
+                        newQ.add(aList.get(i));
+                    }
+                    else
+                    {
+                        newQ.add(ogVert);
+                    }
+                }
+                else 
+                {
+                    newQ.add(aList.get(i));
+                }
+            }
+        }
+        return newQ;
     }
     static void printPath(Vertex v)
     {
