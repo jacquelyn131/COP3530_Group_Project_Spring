@@ -245,6 +245,7 @@ public class Main {
                 return v1.dist - v2.dist;
             }
         });
+        boolean found = false;
         // for each vertex in q
         while (!q.isEmpty())
         {
@@ -255,6 +256,7 @@ public class Main {
             {
                 if (aList.get(i).val == ogVert.val)
                 {
+                    found = true;
                     if (aList.get(i).dist != ogVert.dist)
                     {
                         // update dist of Vertex and add to newQ
@@ -265,10 +267,11 @@ public class Main {
                         newQ.add(ogVert);
                     }
                 }
-                else 
-                {
-                    newQ.add(aList.get(i));
-                }
+                
+            }
+            if (!found)
+            {
+                newQ.add(ogVert);
             }
         }
         return newQ;
