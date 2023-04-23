@@ -181,8 +181,11 @@ public class Main {
             finalVertices.get(i).path = null;
             finalVertices.get(i).known = false;
         }
-        s2.path = null;
-        s2.dist = 0;
+        if (s2 != null)
+        {
+            s2.path = null;
+            s2.dist = 0;
+        }
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
             public int compare(Vertex v1, Vertex v2)
@@ -206,18 +209,21 @@ public class Main {
                     av = listOfAdjacent.get(k);
                 }
             }
-            for (int j = 0; j < av.lst.size(); ++j) // for each vertex adjacent to v
+            if (av != null)
             {
-                // check if w needs to be updated.
-                Vertex w = av.lst.get(j).v;
-
-                int cost = av.lst.get(j).weight; // cost of edge from v to w
-                
-                finalVertices = updateDistance(finalVertices, w, v, cost);
-                q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
-                if (!w.known && !q.contains(w))
+                for (int j = 0; j < av.lst.size(); ++j) // for each vertex adjacent to v
                 {
-                    q.add(w);
+                    // check if w needs to be updated.
+                    Vertex w = av.lst.get(j).v;
+
+                    int cost = av.lst.get(j).weight; // cost of edge from v to w
+                    
+                    finalVertices = updateDistance(finalVertices, w, v, cost);
+                    q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
+                    if (!w.known && !q.contains(w))
+                    {
+                        q.add(w);
+                    }
                 }
             }
             q = updateQDist(q, finalVertices); // update the distances in q.
@@ -270,16 +276,19 @@ public class Main {
                 
             }
         }
-        for (int j = 0; j < lst.size(); ++j)
+        if (parent2 != null)
         {
-            
-            if (lst.get(j).val == v1.val)
+            for (int j = 0; j < lst.size(); ++j)
             {
-                v2 = lst.get(j);
-                if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                
+                if (lst.get(j).val == v1.val)
                 {
-                    v2.dist = parent2.dist + cost;
-                    v2.path = parent2;
+                    v2 = lst.get(j);
+                    if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                    {
+                        v2.dist = parent2.dist + cost;
+                        v2.path = parent2;
+                    }
                 }
             }
         }
@@ -409,6 +418,10 @@ public class Main {
     }
     static void printPath(Vertex v)
     {
+        if (v == null)
+        {
+            return;
+        }
         if (v.path != null)
         {
             printPath(v.path);
