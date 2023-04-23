@@ -115,6 +115,7 @@ public class Main {
         vertList.add(v12);
 
         Graph g = new Graph(vertList);
+        
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
@@ -158,25 +159,33 @@ public class Main {
     public static void dijkstra(Graph g, Vertex s)
     {
 
-        int counter = 0;
-        int minDistance = Integer.MAX_VALUE;
+        //int counter = 0;
+        //int minDistance = Integer.MAX_VALUE;
         boolean known = true;
         s.path = null;
         ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
+        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList); 
+        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s); 
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
-        for (int i = 0; i < g.vertexList.size(); ++i)
+        Vertex s2 = null;
+        for (int i = 0; i < finalVertices.size(); ++i)
         {
-            if (g.vertexList.get(i).val == s.val)
+            if (finalVertices.get(i).val == s.val)
             {
-                continue;
+                finalVertices.get(i).dist = 0;
+                finalVertices.get(i).path = null;
+                s2 = finalVertices.get(i);
             }
-            g.vertexList.get(i).dist = Integer.MAX_VALUE;
-            g.vertexList.get(i).path = null;
-            g.vertexList.get(i).known = false;
+            finalVertices.get(i).dist = Integer.MAX_VALUE;
+            finalVertices.get(i).path = null;
+            finalVertices.get(i).known = false;
         }
-        s.path = null;
-        s.dist = 0;
+        if (s2 != null)
+        {
+            s2.path = null;
+            s2.dist = 0;
+        }
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
             public int compare(Vertex v1, Vertex v2)
@@ -186,37 +195,106 @@ public class Main {
         });
         //updates the distance of that vertex
 
-        q = queue(q, known, g); // Populate the priority queue.
-        // q.add(s);
-        while (!q.isEmpty())
+        //q = queue(q, known, g); // Populate the priority queue.
+        q.add(s2);
+        while (q.size() > 0)
         {
             Vertex v = q.poll();
-            for (int j = 0; j < v.adjList.size(); ++j) // for each vertex adjacent to v
+            v.known = true;
+            // find the AdjacentList
+            AdjacentList av = null;
+            for (int k = 0; k < listOfAdjacent.size(); ++k)
             {
-                // check if w needs to be updated.
-                Vertex w = v.adjList.get(j).v;
-
-                int cost = v.adjList.get(j).weight; // cost of edge from v to w
-                
-                if (cost + v.dist < w.dist)
+                if (listOfAdjacent.get(k).s.val == v.val)
                 {
-                    v.adjList.get(j).v.dist = cost + v.dist; // Update w
-                    v.adjList.get(j).v.path = v;
-                    qAsList.add(v.adjList.get(j).v);
-                }
-                if (!w.known && !q.contains(w))
-                {
-                    q.add(w);
+                    av = listOfAdjacent.get(k);
                 }
             }
-            q = updateQDist(q, qAsList); // update the distances in q.
-            v.known = true;// sets vertex to known
-            counter ++;
+            if (av != null)
+            {
+                for (int j = 0; j < av.lst.size(); ++j) // for each vertex adjacent to v
+                {
+                    // check if w needs to be updated.
+                    Vertex w = av.lst.get(j).v;
+
+                    int cost = av.lst.get(j).weight; // cost of edge from v to w
+                    
+                    finalVertices = updateDistance(finalVertices, w, v, cost);
+                    q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
+                    if (!w.known && !q.contains(w))
+                    {
+                        q.add(w);
+                    }
+                }
+            }
+            q = updateQDist(q, finalVertices); // update the distances in q.
+            //qAsList.add(v); // FIXME: 
+            
+            
         }
         // update g
+        g.vertexList = finalVertices;
+        g.adjacencies = listOfAdjacent;
         
     }
 
+    private static ArrayList<Vertex> updateVertices(ArrayList<Vertex> finalVertices, ArrayList<Vertex> qAsList) 
+    {
+        ArrayList<Vertex> newVertList = new ArrayList<Vertex>(finalVertices); //FIXME: change method so that newVertList starts empty and grows.
+
+        for (int i = 0; i < qAsList.size(); ++i)
+        {
+            // do something to update the vertices
+            Vertex v = qAsList.get(i);
+            for (int j = 0; j < finalVertices.size(); ++j)
+            {
+                // compare
+                Vertex w = finalVertices.get(j);
+                if (v.val == w.val)
+                {
+                    // update
+                    w = new Vertex(v.val, v.adjList);
+                    w.dist = v.dist;
+                    w.known = v. known;
+                    w.path = v.path;
+                    newVertList.add(w);
+                }
+            }
+        }
+        return newVertList;
+    }
+
+    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) 
+    {
+        Vertex v2;
+        Vertex parent2 = null;
+        for (int i = 0; i < lst.size(); ++i)
+        {
+            
+            if (lst.get(i).val == parent.val)
+            {
+                parent2 = lst.get(i);
+                
+            }
+        }
+        if (parent2 != null)
+        {
+            for (int j = 0; j < lst.size(); ++j)
+            {
+                
+                if (lst.get(j).val == v1.val)
+                {
+                    v2 = lst.get(j);
+                    if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                    {
+                        v2.dist = parent2.dist + cost;
+                        v2.path = parent2;
+                    }
+                }
+            }
+        }
+        return lst;
+    }
     public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
     {
         for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
@@ -237,6 +315,59 @@ public class Main {
 
         return pq;// returns PriorityQueue
     }
+
+    public static ArrayList<AdjacentList> setupStuff(Graph g, Vertex source)
+    {
+        Vertex s = source;
+        ArrayList<AdjacentList> a = new ArrayList<AdjacentList>();
+        // set up all the vertices 
+        s.dist = 0;
+        s.path = null;
+        for (int i = 0; i < g.vertexList.size(); i++)
+        {
+            Vertex w = g.vertexList.get(i);
+            if (w.val == s.val)
+            {
+                continue;
+            }
+            else 
+            {
+                w.dist = Integer.MAX_VALUE;
+                w.path = null;
+            }
+        }
+        // and then update the AdjacentLists
+        for (int j = 0; j < g.adjacencies.size(); ++j)
+        {
+            // get the source vertex
+            Vertex v1 = g.adjacencies.get(j).s;
+            Vertex v4 = g.vertexList.get(g.find(v1.val));
+            AdjacentList adjacent = new AdjacentList(v4);
+            // then iterate through each adjacent vertex
+            if (g.adjacencies.get(j).lst.size() > 0)
+            {
+                for (int k = 0; k < g.adjacencies.get(j).lst.size(); ++k)
+                {
+                    
+                    if (g.find(v1.val) >= 0)
+                    {
+                        AdjVertex av1 = g.adjacencies.get(j).lst.get(k);
+                        Vertex v2 = av1.v;
+                        if (g.find(v2.val) >= 0)
+                        {
+                            Vertex v3 = g.vertexList.get(g.find(v2.val)); 
+                            AdjVertex av2 = new AdjVertex(v3);
+                            av2.weight = av1.weight;
+                            adjacent.lst.add(av2);
+                        }
+                    }
+                }
+                a.add(adjacent);
+                
+            }
+        }
+        return a;
+    }
     public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
     {
         // create a new priortiy queue.
@@ -256,9 +387,18 @@ public class Main {
             // check if Vertex needs to be updated
             for (int i = 0; i < aList.size(); ++i)
             {
+                Vertex currentVertex = aList.get(i);
+                if (currentVertex.known)
+                {
+                    continue;
+                }
                 if (aList.get(i).val == ogVert.val)
                 {
                     found = true;
+                    if (aList.get(i).known == true)
+                    {
+                        continue;
+                    }
                     if (aList.get(i).dist != ogVert.dist)
                     {
                         // update dist of Vertex and add to newQ
@@ -280,6 +420,10 @@ public class Main {
     }
     static void printPath(Vertex v)
     {
+        if (v == null)
+        {
+            return;
+        }
         if (v.path != null)
         {
             printPath(v.path);
