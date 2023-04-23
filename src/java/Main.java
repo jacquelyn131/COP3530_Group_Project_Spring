@@ -164,8 +164,8 @@ public class Main {
         boolean known = true;
         s.path = null;
         ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
-        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList); // FIXME: finish implementing finalVertices in the rest of dijkstra()
-        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s); // FIXME: finish implementing listOfAdjacent in the rest of dijkstra().
+        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList); 
+        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s); 
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < finalVertices.size(); ++i)
@@ -188,27 +188,30 @@ public class Main {
             }
         });
 
-        q = queue(q, known, g); // Populate the priority queue.
-        // q.add(s);
+        //q = queue(q, known, g); // Populate the priority queue.
+        q.add(s);
         while (q.size() > 0)
         {
             Vertex v = q.poll();
             v.known = true;
-            for (int j = 0; j < v.adjList.size(); ++j) // for each vertex adjacent to v
+            // find the AdjacentList
+            AdjacentList av = null;
+            for (int k = 0; k < listOfAdjacent.size(); ++k)
+            {
+                if (listOfAdjacent.get(k).s.val == v.val)
+                {
+                    av = listOfAdjacent.get(k);
+                }
+            }
+            for (int j = 0; j < av.lst.size(); ++j) // for each vertex adjacent to v
             {
                 // check if w needs to be updated.
-                Vertex w = v.adjList.get(j).v;
+                Vertex w = av.lst.get(j).v;
 
-                int cost = v.adjList.get(j).weight; // cost of edge from v to w
+                int cost = av.lst.get(j).weight; // cost of edge from v to w
                 
-                if (!(v.dist == Integer.MAX_VALUE) && cost + v.dist < w.dist)
-                {
-                    w.dist = cost + v.dist; // Update w
-                    w.path = v;
-                    finalVertices = updateDistance(finalVertices, w, v, cost);
-                    q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
-                    //finalVertices = updateVertices(finalVertices, qAsList);
-                }
+                finalVertices = updateDistance(finalVertices, w, v, cost);
+                q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
                 if (!w.known && !q.contains(w))
                 {
                     q.add(w);
@@ -251,7 +254,7 @@ public class Main {
         return newVertList;
     }
 
-    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) // FIXME: complete this method.
+    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) 
     {
         Vertex v2;
         Vertex parent2 = null;
