@@ -168,18 +168,21 @@ public class Main {
         ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s); 
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
+        Vertex s2 = null;
         for (int i = 0; i < finalVertices.size(); ++i)
         {
             if (finalVertices.get(i).val == s.val)
             {
-                continue;
+                finalVertices.get(i).dist = 0;
+                finalVertices.get(i).path = null;
+                s2 = finalVertices.get(i);
             }
             finalVertices.get(i).dist = Integer.MAX_VALUE;
             finalVertices.get(i).path = null;
             finalVertices.get(i).known = false;
         }
-        s.path = null;
-        s.dist = 0;
+        s2.path = null;
+        s2.dist = 0;
         // Create a priority queue of type Vertex
         PriorityQueue<Vertex> q = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
             public int compare(Vertex v1, Vertex v2)
@@ -189,7 +192,7 @@ public class Main {
         });
 
         //q = queue(q, known, g); // Populate the priority queue.
-        q.add(s);
+        q.add(s2);
         while (q.size() > 0)
         {
             Vertex v = q.poll();
