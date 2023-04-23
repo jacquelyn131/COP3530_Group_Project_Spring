@@ -158,11 +158,12 @@ public class Main {
     public static void dijkstra(Graph g, Vertex s)
     {
 
-        int counter = 0;
-        int minDistance = Integer.MAX_VALUE;
+        //int counter = 0;
+        //int minDistance = Integer.MAX_VALUE;
         boolean known = true;
         s.path = null;
         ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
+        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList);
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < g.vertexList.size(); ++i)
@@ -199,9 +200,14 @@ public class Main {
                 
                 if (cost + v.dist < w.dist)
                 {
-                    v.adjList.get(j).v.dist = cost + v.dist; // Update w
-                    v.adjList.get(j).v.path = v;
-                    qAsList.add(v.adjList.get(j).v);
+                    w.dist = cost + v.dist; // Update w
+                    w.path = v;
+                    qAsList.add(w);
+                    finalVertices = updateVertices(finalVertices, qAsList);
+                }
+                else 
+                {
+                    qAsList.add(w);
                 }
                 if (!w.known && !q.contains(w))
                 {
@@ -209,11 +215,40 @@ public class Main {
                 }
             }
             q = updateQDist(q, qAsList); // update the distances in q.
-            v.known = true;// sets vertex to known
-            counter ++;
+            v.known = true; // sets vertex to known
+            qAsList.add(v);
+            finalVertices = updateVertices(finalVertices, qAsList);
+            //counter++;
         }
         // update g
+        g.vertexList = finalVertices;
         
+    }
+
+    private static ArrayList<Vertex> updateVertices(ArrayList<Vertex> finalVertices, ArrayList<Vertex> qAsList) 
+    {
+        ArrayList<Vertex> newVertList = new ArrayList<Vertex>(finalVertices);
+
+        for (int i = 0; i < qAsList.size(); ++i)
+        {
+            // do something to update the vertices
+            Vertex v = qAsList.get(i);
+            for (int j = 0; j < finalVertices.size(); ++j)
+            {
+                // compare
+                Vertex w = finalVertices.get(j);
+                if (v.val == w.val)
+                {
+                    // update
+                    w = new Vertex(v.val, v.adjList);
+                    w.dist = v.dist;
+                    w.known = v. known;
+                    w.path = v.path;
+                    newVertList.add(w);
+                }
+            }
+        }
+        return newVertList;
     }
 
     public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
