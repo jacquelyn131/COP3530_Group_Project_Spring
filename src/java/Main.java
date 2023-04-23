@@ -195,8 +195,8 @@ public class Main {
         });
         //updates the distance of that vertex
 
-        //q = queue(q, known, g); // Populate the priority queue.
-        q.add(s2);
+        q = queue(q, known, finalVertices); // Populate the priority queue.
+        //q.add(s2);
         while (q.size() > 0)
         {
             Vertex v = q.poll();
@@ -295,22 +295,19 @@ public class Main {
         }
         return lst;
     }
-    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
+    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, ArrayList<Vertex> a)
     {
-        for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
+        for(int i = 0; i < a.size(); i++)// traverse through Graph g to check if current vertex has been visited
         {
-            Vertex currentPV = g.vertexList.get(i);
-            Vertex copy = new Vertex(currentPV.val, currentPV.adjList); // create a copy so these vertex objects can get updated independently of g.vertList.
-            copy.dist = currentPV.dist;
-            copy.path = currentPV.path;
-            copy.known = currentPV.known;
+            Vertex currentPV = a.get(i);
+            
 
             /* if(currentPV.known)
             {
                 continue;
             }*/     
             
-            pq.add(copy);// adds current vertex to PriorityQueue q
+            pq.add(currentPV);// adds current vertex to PriorityQueue q
         }
 
         return pq;// returns PriorityQueue
