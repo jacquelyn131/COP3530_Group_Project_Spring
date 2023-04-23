@@ -115,6 +115,7 @@ public class Main {
         vertList.add(v12);
 
         Graph g = new Graph(vertList);
+        
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
                                 , {1,4}, {5,2}, {7,4},{2,1}, {4,2}, {6,Integer.MAX_VALUE}, {8,1}
@@ -341,6 +342,11 @@ public class Main {
             // check if Vertex needs to be updated
             for (int i = 0; i < aList.size(); ++i)
             {
+                Vertex currentVertex = aList.get(i);
+                if (currentVertex.known)
+                {
+                    continue;
+                }
                 if (aList.get(i).val == ogVert.val)
                 {
                     found = true;
