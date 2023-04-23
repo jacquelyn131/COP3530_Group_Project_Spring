@@ -113,8 +113,43 @@ public class Main {
         vertList.add(v10);
         vertList.add(v11);
         vertList.add(v12);
+        // adjacencies for the graph
+        ArrayList<AdjacentList> adjcns = new ArrayList<AdjacentList>();
+        // v1 adjacency
+        AdjacentList adj1 = new AdjacentList(v1);
+        adj1.lst.add(av12);
+        adj1.lst.add(av14);
+        // v2 adjacency
+        AdjacentList adj2 = new AdjacentList(v2);
+        adj2.lst.add(av21);
+        adj2.lst.add(av23);
+        adj2.lst.add(av25);
+        // v3 adjacency
+        AdjacentList adj3 = new AdjacentList(v3);
+        adj3.lst.add(av32);
+        adj3.lst.add(av36);
+        // v4 adjacency
+        AdjacentList adj4 = new AdjacentList(v4);
+        adj4.lst.add(av41);
+        adj4.lst.add(av45);
+        adj4.lst.add(av47);
+        // v5 adjacency
+        AdjacentList adj5 = new AdjacentList(v5);
+        adj5.lst.add(av52);
+        adj5.lst.add(av54);
+        adj5.lst.add(av56);
+        adj5.lst.add(av58);
+        // v6 adjacency
+        AdjacentList adj6 = new AdjacentList(v6);
+        adj6.lst.add(av63);
+        adj6.lst.add(av65);
+        adj6.lst.add(av69);
+        // v7 adjacency
+        AdjacentList adj7 = new AdjacentList(v7);
+        adj7.lst.add(av74);
+        
 
-        Graph g = new Graph(vertList);
+        Graph g = new Graph(vertList); // FIXME: need to add adjacencies for testing
         
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
@@ -302,10 +337,10 @@ public class Main {
             Vertex currentPV = a.get(i);
             
 
-            /* if(currentPV.known)
+             if(currentPV.known)
             {
                 continue;
-            }*/     
+            }    
             
             pq.add(currentPV);// adds current vertex to PriorityQueue q
         }
@@ -365,7 +400,7 @@ public class Main {
         }
         return a;
     }
-    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
+    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList) 
     {
         // create a new priortiy queue.
         PriorityQueue<Vertex> newQ = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
@@ -376,7 +411,7 @@ public class Main {
         });
         boolean found = false;
         // for each vertex in q
-        while (!q.isEmpty())
+        /*while (!q.isEmpty())
         {
             Vertex ogVert = q.poll();
             //Vertex ogVert = q.peek();
@@ -384,19 +419,13 @@ public class Main {
             // check if Vertex needs to be updated
             for (int i = 0; i < aList.size(); ++i)
             {
+                found = false;
                 Vertex currentVertex = aList.get(i);
-                if (currentVertex.known)
-                {
-                    continue;
-                }
-                if (aList.get(i).val == ogVert.val)
+                if (currentVertex.val == ogVert.val)
                 {
                     found = true;
-                    if (aList.get(i).known == true)
-                    {
-                        continue;
-                    }
-                    if (aList.get(i).dist != ogVert.dist)
+                    
+                    if (currentVertex.dist != ogVert.dist || currentVertex.known != ogVert.known) // FIXME: also need to check if found is different
                     {
                         // update dist of Vertex and add to newQ
                         newQ.add(aList.get(i));
@@ -411,6 +440,18 @@ public class Main {
             if (!found)
             {
                 newQ.add(ogVert);
+            }*
+        }*/
+        for (int j = 0; j < aList.size(); ++j)
+        {
+            // check if known
+            if (aList.get(j).known)
+            {
+                continue;
+            }
+            else
+            {
+                newQ.add(aList.get(j)); 
             }
         }
         return newQ;
