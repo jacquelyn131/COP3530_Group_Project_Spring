@@ -273,7 +273,44 @@ public class Main {
         return pq;// returns PriorityQueue
     }
 
-    public ArrayList<AdjacentList> setupStuff()
+    public static ArrayList<AdjacentList> setupStuff(Graph g, Vertex source)
+    {
+        Vertex s = source;
+        ArrayList<AdjacentList> a = new ArrayList<AdjacentList>();
+        // set up all the vertices 
+        for (int i = 0; i < g.vertexList.size(); i++)
+        {
+            Vertex w = g.vertexList.get(i);
+            if (w.val == s.val)
+            {
+                continue;
+            }
+            else 
+            {
+                w.dist = Integer.MAX_VALUE;
+                w.path = null;
+            }
+        }
+        // and then update the AdjacentLists
+        for (int j = 0; j < g.adjacencies.size(); ++j)
+        {
+            // get the source vertex
+            Vertex v1 = g.adjacencies.get(j).s;
+            // then iterate through each adjacent vertex
+            if (g.adjacencies.get(j).lst.size() > 0)
+            {
+                for (int k = 0; k < g.adjacencies.get(j).lst.size(); ++k)
+                {
+                    if (g.find(v1.val) >= 0)
+                    {
+                        AdjVertex av1 = g.adjacencies.get(j).lst.get(k);
+                        Vertex v2 = av1.v;
+                        Vertex v3 // FIXME: finish this line
+                    }
+                }
+            }
+        }
+    }
     public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
     {
         // create a new priortiy queue.
