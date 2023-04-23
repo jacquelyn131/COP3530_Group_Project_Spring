@@ -199,7 +199,7 @@ public class Main {
 
                 int cost = v.adjList.get(j).weight; // cost of edge from v to w
                 
-                if (cost + v.dist < w.dist)
+                if (!(v.dist == Integer.MAX_VALUE) && cost + v.dist < w.dist)
                 {
                     w.dist = cost + v.dist; // Update w
                     w.path = v;
