@@ -164,6 +164,7 @@ public class Main {
         s.path = null;
         ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
         ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList);
+        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s);
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
         for (int i = 0; i < g.vertexList.size(); ++i)
@@ -271,6 +272,8 @@ public class Main {
 
         return pq;// returns PriorityQueue
     }
+
+    public ArrayList<AdjacentList> setupStuff()
     public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
     {
         // create a new priortiy queue.
