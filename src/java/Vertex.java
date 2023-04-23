@@ -17,9 +17,13 @@ public class Vertex {
         this.val = v;
         this.adjList = new ArrayList<AdjVertex>();
     }
-    /*public static int compareTo(Vertex vert)
+    public boolean equals(Object o)
     {
-        int theDistance = dist;
-        return (theDistance - vert.dist);
-    }*/
+        if(!(o instanceof Vertex))
+        {
+            return false;
+        }
+        Vertex vert = (Vertex) o;
+        return val == (vert.val);
+    }
 }

@@ -20,7 +20,7 @@ public class Main {
         Vertex v12 = new Vertex(12);
         // v1 adjacency
         AdjVertex av12 = new AdjVertex(v2, 2);
-        AdjVertex av14 = new AdjVertex(v2, 4);
+        AdjVertex av14 = new AdjVertex(v4, 4);
         v1.adjList = new ArrayList<AdjVertex>();
         v1.adjList.add(av12);
         v1.adjList.add(av14);
@@ -184,6 +184,7 @@ public class Main {
                 return v1.dist - v2.dist;
             }
         });
+        //updates the distance of that vertex
 
         q = queue(q, known, g); // Populate the priority queue.
         // q.add(s);
@@ -249,6 +250,7 @@ public class Main {
         while (!q.isEmpty())
         {
             Vertex ogVert = q.poll();
+            //Vertex ogVert = q.peek();
             
             // check if Vertex needs to be updated
             for (int i = 0; i < aList.size(); ++i)
