@@ -164,19 +164,19 @@ public class Main {
         boolean known = true;
         s.path = null;
         ArrayList<Vertex> qAsList = new ArrayList<Vertex>();
-        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList);
-        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s);
+        ArrayList<Vertex> finalVertices = new ArrayList<Vertex>(g.vertexList); // FIXME: finish implementing finalVertices in the rest of dijkstra()
+        ArrayList<AdjacentList> listOfAdjacent = setupStuff(g, s); // FIXME: finish implementing listOfAdjacent in the rest of dijkstra().
 
         // Set the dist of all vertices to 0 and the path of all vertices to null.
-        for (int i = 0; i < g.vertexList.size(); ++i)
+        for (int i = 0; i < finalVertices.size(); ++i)
         {
-            if (g.vertexList.get(i).val == s.val)
+            if (finalVertices.get(i).val == s.val)
             {
                 continue;
             }
-            g.vertexList.get(i).dist = Integer.MAX_VALUE;
-            g.vertexList.get(i).path = null;
-            g.vertexList.get(i).known = false;
+            finalVertices.get(i).dist = Integer.MAX_VALUE;
+            finalVertices.get(i).path = null;
+            finalVertices.get(i).known = false;
         }
         s.path = null;
         s.dist = 0;
@@ -205,31 +205,29 @@ public class Main {
                 {
                     w.dist = cost + v.dist; // Update w
                     w.path = v;
-                    qAsList.add(w);
-                    finalVertices = updateVertices(finalVertices, qAsList);
-                }
-                else 
-                {
-                    qAsList.add(w);
+                    finalVertices = updateDistance(finalVertices, w, v, cost);
+                    q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
+                    //finalVertices = updateVertices(finalVertices, qAsList);
                 }
                 if (!w.known && !q.contains(w))
                 {
                     q.add(w);
                 }
             }
-            q = updateQDist(q, qAsList); // update the distances in q.
-            qAsList.add(v);
-            finalVertices = updateVertices(finalVertices, qAsList);
-            //counter++;
+            q = updateQDist(q, finalVertices); // update the distances in q.
+            //qAsList.add(v); // FIXME: 
+            
+            
         }
         // update g
         g.vertexList = finalVertices;
+        g.adjacencies = listOfAdjacent;
         
     }
 
     private static ArrayList<Vertex> updateVertices(ArrayList<Vertex> finalVertices, ArrayList<Vertex> qAsList) 
     {
-        ArrayList<Vertex> newVertList = new ArrayList<Vertex>(finalVertices);
+        ArrayList<Vertex> newVertList = new ArrayList<Vertex>(finalVertices); //FIXME: change method so that newVertList starts empty and grows.
 
         for (int i = 0; i < qAsList.size(); ++i)
         {
@@ -253,6 +251,34 @@ public class Main {
         return newVertList;
     }
 
+    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) // FIXME: complete this method.
+    {
+        Vertex v2;
+        Vertex parent2 = null;
+        for (int i = 0; i < lst.size(); ++i)
+        {
+            
+            if (lst.get(i).val == parent.val)
+            {
+                parent2 = lst.get(i);
+                
+            }
+        }
+        for (int j = 0; j < lst.size(); ++j)
+        {
+            
+            if (lst.get(j).val == v1.val)
+            {
+                v2 = lst.get(j);
+                if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                {
+                    v2.dist = parent2.dist + cost;
+                    v2.path = parent2;
+                }
+            }
+        }
+        return lst;
+    }
     public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
     {
         for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
@@ -279,6 +305,8 @@ public class Main {
         Vertex s = source;
         ArrayList<AdjacentList> a = new ArrayList<AdjacentList>();
         // set up all the vertices 
+        s.dist = 0;
+        s.path = null;
         for (int i = 0; i < g.vertexList.size(); i++)
         {
             Vertex w = g.vertexList.get(i);
