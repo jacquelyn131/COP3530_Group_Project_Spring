@@ -188,9 +188,10 @@ public class Main {
 
         q = queue(q, known, g); // Populate the priority queue.
         // q.add(s);
-        while (!q.isEmpty())
+        while (q.size() > 0)
         {
             Vertex v = q.poll();
+            v.known = true;
             for (int j = 0; j < v.adjList.size(); ++j) // for each vertex adjacent to v
             {
                 // check if w needs to be updated.
@@ -215,7 +216,6 @@ public class Main {
                 }
             }
             q = updateQDist(q, qAsList); // update the distances in q.
-            v.known = true; // sets vertex to known
             qAsList.add(v);
             finalVertices = updateVertices(finalVertices, qAsList);
             //counter++;
@@ -292,6 +292,10 @@ public class Main {
                 if (aList.get(i).val == ogVert.val)
                 {
                     found = true;
+                    if (aList.get(i).known == true)
+                    {
+                        continue;
+                    }
                     if (aList.get(i).dist != ogVert.dist)
                     {
                         // update dist of Vertex and add to newQ
