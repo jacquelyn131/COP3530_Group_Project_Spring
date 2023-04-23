@@ -296,20 +296,32 @@ public class Main {
         {
             // get the source vertex
             Vertex v1 = g.adjacencies.get(j).s;
+            Vertex v4 = g.vertexList.get(g.find(v1.val));
+            AdjacentList adjacent = new AdjacentList(v4);
             // then iterate through each adjacent vertex
             if (g.adjacencies.get(j).lst.size() > 0)
             {
                 for (int k = 0; k < g.adjacencies.get(j).lst.size(); ++k)
                 {
+                    
                     if (g.find(v1.val) >= 0)
                     {
                         AdjVertex av1 = g.adjacencies.get(j).lst.get(k);
                         Vertex v2 = av1.v;
-                        Vertex v3 // FIXME: finish this line
+                        if (g.find(v2.val) >= 0)
+                        {
+                            Vertex v3 = g.vertexList.get(g.find(v2.val)); 
+                            AdjVertex av2 = new AdjVertex(v3);
+                            av2.weight = av1.weight;
+                            adjacent.lst.add(av2);
+                        }
                     }
                 }
+                a.add(adjacent);
+                
             }
         }
+        return a;
     }
     public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
     {
