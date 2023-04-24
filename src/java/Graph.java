@@ -1,6 +1,7 @@
 import java.util.*;
-public class Graph {
-    List<Vertex> vertexList; // List of vertices in the graph.
+public class Graph extends AbstractGraph
+{
+     
     ArrayList<AdjacentList> adjacencies; // A set of adjacency lists
 
     Graph()
