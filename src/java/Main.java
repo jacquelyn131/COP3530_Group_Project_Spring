@@ -365,7 +365,7 @@ public class Main {
                 if (lst.get(j).val == v1.val)
                 {
                     v2 = lst.get(j);
-                    if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                    if (v2.dist == Integer.MAX_VALUE && parent2.dist + cost < v2.dist)
                     {
                         v2.dist = parent2.dist + cost;
                         v2.path = parent2;
