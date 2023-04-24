@@ -216,7 +216,7 @@ public class Main {
         //Graph gameGraph = new Graph(vertList, adjVertList);
 
         // Call dijkstra() on the new graph, assume zombie is at position v1.
-        System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
+        //System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
         
         ArrayList<Vertex> res = dijkstra(g, v1);
 
@@ -344,7 +344,7 @@ public class Main {
         return newVertList;
     }
 
-    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) 
+    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) // FIXME: this has a bug where it will make the dist go negative.
     {
         Vertex v2;
         Vertex parent2 = null;
@@ -365,7 +365,7 @@ public class Main {
                 if (lst.get(j).val == v1.val)
                 {
                     v2 = lst.get(j);
-                    if (!(v2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+                    if (!(parent2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
                     {
                         v2.dist = parent2.dist + cost;
                         v2.path = parent2;
