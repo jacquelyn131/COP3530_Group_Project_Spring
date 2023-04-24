@@ -113,8 +113,83 @@ public class Main {
         vertList.add(v10);
         vertList.add(v11);
         vertList.add(v12);
+        // adjacencies for the graph
+        ArrayList<AdjacentList> adjcns = new ArrayList<AdjacentList>();
+        // v1 adjacency
+        AdjacentList adj1 = new AdjacentList(v1);
+        adj1.lst.add(av12);
+        adj1.lst.add(av14);
+        // v2 adjacency
+        AdjacentList adj2 = new AdjacentList(v2);
+        adj2.lst.add(av21);
+        adj2.lst.add(av23);
+        adj2.lst.add(av25);
+        // v3 adjacency
+        AdjacentList adj3 = new AdjacentList(v3);
+        adj3.lst.add(av32);
+        adj3.lst.add(av36);
+        // v4 adjacency
+        AdjacentList adj4 = new AdjacentList(v4);
+        adj4.lst.add(av41);
+        adj4.lst.add(av45);
+        adj4.lst.add(av47);
+        // v5 adjacency
+        AdjacentList adj5 = new AdjacentList(v5);
+        adj5.lst.add(av52);
+        adj5.lst.add(av54);
+        adj5.lst.add(av56);
+        adj5.lst.add(av58);
+        // v6 adjacency
+        AdjacentList adj6 = new AdjacentList(v6);
+        adj6.lst.add(av63);
+        adj6.lst.add(av65);
+        adj6.lst.add(av69);
+        // v7 adjacency
+        AdjacentList adj7 = new AdjacentList(v7);
+        adj7.lst.add(av74);
+        adj7.lst.add(av78);
+        adj7.lst.add(av710);
+        // v8 adjacency
+        AdjacentList adj8 = new AdjacentList(v8);
+        adj8.lst.add(av87);
+        adj8.lst.add(av85);
+        adj8.lst.add(av89);
+        adj8.lst.add(av811);
+        // v9 adjacency
+        AdjacentList adj9 = new AdjacentList(v9);
+        adj9.lst.add(av98);
+        adj9.lst.add(av96);
+        adj9.lst.add(av912);
+        // v10 adjacency
+        AdjacentList adj10 = new AdjacentList(v10);
+        adj10.lst.add(av107);
+        adj10.lst.add(av1011);
+        // v11 adjacency
+        AdjacentList adj11 = new AdjacentList(v11);
+        adj11.lst.add(av1110);
+        adj11.lst.add(av118);
+        adj11.lst.add(av1112);
+        // v12 adjacency
+        AdjacentList adj12 = new AdjacentList(v12);
+        adj12.lst.add(av1211);
+        adj12.lst.add(av129);
 
-        Graph g = new Graph(vertList);
+        // add on to adjcns
+        adjcns.add(adj1);
+        adjcns.add(adj2);
+        adjcns.add(adj3);
+        adjcns.add(adj4);
+        adjcns.add(adj5);
+        adjcns.add(adj6);
+        adjcns.add(adj7);
+        adjcns.add(adj8);
+        adjcns.add(adj9);
+        adjcns.add(adj10);
+        adjcns.add(adj11);
+        adjcns.add(adj12);
+
+        Graph g = new Graph(vertList); // FIXME: need to add adjacencies for testing
+        g.adjacencies = adjcns;
         
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
@@ -141,8 +216,12 @@ public class Main {
         //Graph gameGraph = new Graph(vertList, adjVertList);
 
         // Call dijkstra() on the new graph, assume zombie is at position v1.
-        dijkstra(g, v1);
+        System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
         
+        ArrayList<Vertex> res = dijkstra(g, v1);
+
+        System.out.println("testing path: " + res.get(0).path);
+        System.out.println(res.get(0).val);
         // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
         // print value of player vertex.
         int zombiePos = 1;
@@ -156,7 +235,7 @@ public class Main {
 
     }
 
-    public static void dijkstra(Graph g, Vertex s)
+    public static ArrayList<Vertex> dijkstra(Graph g, Vertex s)
     {
 
         //int counter = 0;
@@ -195,8 +274,8 @@ public class Main {
         });
         //updates the distance of that vertex
 
-        //q = queue(q, known, g); // Populate the priority queue.
-        q.add(s2);
+        q = queue(q, known, finalVertices); // Populate the priority queue.
+        //q.add(s2);
         while (q.size() > 0)
         {
             Vertex v = q.poll();
@@ -235,6 +314,7 @@ public class Main {
         // update g
         g.vertexList = finalVertices;
         g.adjacencies = listOfAdjacent;
+        return finalVertices;
         
     }
 
@@ -295,22 +375,19 @@ public class Main {
         }
         return lst;
     }
-    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, Graph g)
+    public static PriorityQueue<Vertex> queue (PriorityQueue<Vertex> pq, boolean k, ArrayList<Vertex> a)
     {
-        for(int i = 0; i < g.vertexList.size(); i++)// traverse through Graph g to check if current vertex has been visited
+        for(int i = 0; i < a.size(); i++)// traverse through Graph g to check if current vertex has been visited
         {
-            Vertex currentPV = g.vertexList.get(i);
-            Vertex copy = new Vertex(currentPV.val, currentPV.adjList); // create a copy so these vertex objects can get updated independently of g.vertList.
-            copy.dist = currentPV.dist;
-            copy.path = currentPV.path;
-            copy.known = currentPV.known;
+            Vertex currentPV = a.get(i);
+            
 
-            /* if(currentPV.known)
+             if(currentPV.known)
             {
                 continue;
-            }*/     
+            }    
             
-            pq.add(copy);// adds current vertex to PriorityQueue q
+            pq.add(currentPV);// adds current vertex to PriorityQueue q
         }
 
         return pq;// returns PriorityQueue
@@ -368,7 +445,7 @@ public class Main {
         }
         return a;
     }
-    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList)
+    public static PriorityQueue<Vertex> updateQDist(PriorityQueue<Vertex> q, ArrayList<Vertex> aList) 
     {
         // create a new priortiy queue.
         PriorityQueue<Vertex> newQ = new PriorityQueue<Vertex>(10, new Comparator<Vertex>() {
@@ -379,7 +456,7 @@ public class Main {
         });
         boolean found = false;
         // for each vertex in q
-        while (!q.isEmpty())
+        /*while (!q.isEmpty())
         {
             Vertex ogVert = q.poll();
             //Vertex ogVert = q.peek();
@@ -387,19 +464,13 @@ public class Main {
             // check if Vertex needs to be updated
             for (int i = 0; i < aList.size(); ++i)
             {
+                found = false;
                 Vertex currentVertex = aList.get(i);
-                if (currentVertex.known)
-                {
-                    continue;
-                }
-                if (aList.get(i).val == ogVert.val)
+                if (currentVertex.val == ogVert.val)
                 {
                     found = true;
-                    if (aList.get(i).known == true)
-                    {
-                        continue;
-                    }
-                    if (aList.get(i).dist != ogVert.dist)
+                    
+                    if (currentVertex.dist != ogVert.dist || currentVertex.known != ogVert.known) // FIXME: also need to check if found is different
                     {
                         // update dist of Vertex and add to newQ
                         newQ.add(aList.get(i));
@@ -414,6 +485,18 @@ public class Main {
             if (!found)
             {
                 newQ.add(ogVert);
+            }*
+        }*/
+        for (int j = 0; j < aList.size(); ++j)
+        {
+            // check if known
+            if (aList.get(j).known)
+            {
+                continue;
+            }
+            else
+            {
+                newQ.add(aList.get(j)); 
             }
         }
         return newQ;
