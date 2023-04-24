@@ -147,9 +147,49 @@ public class Main {
         // v7 adjacency
         AdjacentList adj7 = new AdjacentList(v7);
         adj7.lst.add(av74);
-        
+        adj7.lst.add(av78);
+        adj7.lst.add(av710);
+        // v8 adjacency
+        AdjacentList adj8 = new AdjacentList(v8);
+        adj8.lst.add(av87);
+        adj8.lst.add(av85);
+        adj8.lst.add(av89);
+        adj8.lst.add(av811);
+        // v9 adjacency
+        AdjacentList adj9 = new AdjacentList(v9);
+        adj9.lst.add(av98);
+        adj9.lst.add(av96);
+        adj9.lst.add(av912);
+        // v10 adjacency
+        AdjacentList adj10 = new AdjacentList(v10);
+        adj10.lst.add(av107);
+        adj10.lst.add(av1011);
+        // v11 adjacency
+        AdjacentList adj11 = new AdjacentList(v11);
+        adj11.lst.add(av1110);
+        adj11.lst.add(av118);
+        adj11.lst.add(av1112);
+        // v12 adjacency
+        AdjacentList adj12 = new AdjacentList(v12);
+        adj12.lst.add(av1211);
+        adj12.lst.add(av129);
+
+        // add on to adjcns
+        adjcns.add(adj1);
+        adjcns.add(adj2);
+        adjcns.add(adj3);
+        adjcns.add(adj4);
+        adjcns.add(adj5);
+        adjcns.add(adj6);
+        adjcns.add(adj7);
+        adjcns.add(adj8);
+        adjcns.add(adj9);
+        adjcns.add(adj10);
+        adjcns.add(adj11);
+        adjcns.add(adj12);
 
         Graph g = new Graph(vertList); // FIXME: need to add adjacencies for testing
+        g.adjacencies = adjcns;
         
         /*Vertex vertList = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         AdjVertex adjVertList = {{2,2}, {4, 4}, {1,2}, {3,1}, {5,1}, {2,1}, {6,1}
@@ -176,8 +216,12 @@ public class Main {
         //Graph gameGraph = new Graph(vertList, adjVertList);
 
         // Call dijkstra() on the new graph, assume zombie is at position v1.
-        dijkstra(g, v1);
+        System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
         
+        ArrayList<Vertex> res = dijkstra(g, v1);
+
+        System.out.println("testing path: " + res.get(0).path);
+        System.out.println(res.get(0).val);
         // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
         // print value of player vertex.
         int zombiePos = 1;
@@ -191,7 +235,7 @@ public class Main {
 
     }
 
-    public static void dijkstra(Graph g, Vertex s)
+    public static ArrayList<Vertex> dijkstra(Graph g, Vertex s)
     {
 
         //int counter = 0;
@@ -270,6 +314,7 @@ public class Main {
         // update g
         g.vertexList = finalVertices;
         g.adjacencies = listOfAdjacent;
+        return finalVertices;
         
     }
 
