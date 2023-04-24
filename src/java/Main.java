@@ -220,8 +220,8 @@ public class Main {
         
         ArrayList<Vertex> res = dijkstra(g, v1);
 
-        System.out.println("testing path: " + res.get(0).path);
-        System.out.println(res.get(0).val);
+        System.out.println("testing path: " + res.get(2).path);
+        System.out.println(res.get(2).val);
         // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
         // print value of player vertex.
         int zombiePos = 1;
