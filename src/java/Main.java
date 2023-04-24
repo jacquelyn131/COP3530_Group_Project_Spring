@@ -227,11 +227,13 @@ public class Main {
         int zombiePos = 1;
         int playerPos = 12;
         System.out.println("Path: ");
-        Vertex currVertex = g.vertexList.get(playerPos - 1);
+        Vertex currVertex = res.get(playerPos - 1);
         System.out.println(currVertex.val);
         currVertex = currVertex.path;
         // while the current vertex is not equal to zombie position;
-        printPath(currVertex);
+        
+        //printPath(currVertex);
+            
 
     }
 
@@ -300,10 +302,10 @@ public class Main {
                     
                     finalVertices = updateDistance(finalVertices, w, v, cost);
                     q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
-                    if (!w.known && !q.contains(w))
+                    /*if (!w.known && !q.contains(w)) // FIXME: is this line good?
                     {
                         q.add(w);
-                    }
+                    }*/
                 }
             }
             q = updateQDist(q, finalVertices); // update the distances in q.
