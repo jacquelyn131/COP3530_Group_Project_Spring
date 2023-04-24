@@ -1,7 +1,8 @@
 import java.lang.Comparable;
 import java.util.*;
-public class Vertex {
-    int val;
+public class Vertex  extends AbstractVertex
+{
+    
     public List<AdjVertex> adjList;
     public int dist;
     Vertex path;
@@ -14,7 +15,7 @@ public class Vertex {
     }
     Vertex(int v)
     {
-        this.val = v;
+        super(v);
         this.adjList = new ArrayList<AdjVertex>();
     }
     public boolean equals(Object o)
