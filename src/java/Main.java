@@ -216,22 +216,24 @@ public class Main {
         //Graph gameGraph = new Graph(vertList, adjVertList);
 
         // Call dijkstra() on the new graph, assume zombie is at position v1.
-        System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
+        //System.out.println("testing: " + g.adjacencies.get(1).lst.get(1).v.val);
         
         ArrayList<Vertex> res = dijkstra(g, v1);
 
-        System.out.println("testing path: " + res.get(0).path);
-        System.out.println(res.get(0).val);
+        System.out.println("testing path: " + res.get(2).path);
+        System.out.println(res.get(2).val);
         // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
         // print value of player vertex.
         int zombiePos = 1;
         int playerPos = 12;
         System.out.println("Path: ");
-        Vertex currVertex = g.vertexList.get(playerPos - 1);
+        Vertex currVertex = res.get(playerPos - 1);
         System.out.println(currVertex.val);
         currVertex = currVertex.path;
         // while the current vertex is not equal to zombie position;
-        printPath(currVertex);
+        
+        //printPath(currVertex);
+            
 
     }
 
@@ -300,10 +302,10 @@ public class Main {
                     
                     finalVertices = updateDistance(finalVertices, w, v, cost);
                     q = updateQDist(q, finalVertices); // FIXME: this might be causing a problem later
-                    if (!w.known && !q.contains(w))
+                    /*if (!w.known && !q.contains(w)) // FIXME: is this line good?
                     {
                         q.add(w);
-                    }
+                    }*/
                 }
             }
             q = updateQDist(q, finalVertices); // update the distances in q.
@@ -344,7 +346,7 @@ public class Main {
         return newVertList;
     }
 
-    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) 
+    public static ArrayList<Vertex> updateDistance(ArrayList<Vertex> lst, Vertex v1, Vertex parent, int cost) // FIXME: this has a bug where it will make the dist go negative.
     {
         Vertex v2;
         Vertex parent2 = null;
@@ -365,7 +367,11 @@ public class Main {
                 if (lst.get(j).val == v1.val)
                 {
                     v2 = lst.get(j);
-                    if (v2.dist == Integer.MAX_VALUE && parent2.dist + cost < v2.dist)
+
+                    if (!(parent2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
+
+                    
+
                     {
                         v2.dist = parent2.dist + cost;
                         v2.path = parent2;
