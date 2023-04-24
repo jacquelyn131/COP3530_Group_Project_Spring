@@ -46,14 +46,14 @@ public class Main {
         // v5 adjacency
         AdjVertex av54 = new AdjVertex(v4, 2);
         AdjVertex av52 = new AdjVertex(v2, 1);
-        AdjVertex av56 = new AdjVertex(v6, Integer.MAX_VALUE);
+        AdjVertex av56 = new AdjVertex(v6, Integer.MAX_VALUE - 10);
         AdjVertex av58 = new AdjVertex(v8, 1);
         v5.adjList.add(av54);
         v5.adjList.add(av52);
         v5.adjList.add(av56);
         v5.adjList.add(av58);
         // v6 adjacency
-        AdjVertex av65 = new AdjVertex(v5, Integer.MAX_VALUE);
+        AdjVertex av65 = new AdjVertex(v5, Integer.MAX_VALUE - 10);
         AdjVertex av63 = new AdjVertex(v3, 1);
         AdjVertex av69 = new AdjVertex(v9, 1);
         v6.adjList.add(av65);
@@ -69,14 +69,14 @@ public class Main {
         // v8 adjacency
         AdjVertex av87 = new AdjVertex(v7, 2);
         AdjVertex av85 = new AdjVertex(v5, 1);
-        AdjVertex av89 = new AdjVertex(v9, Integer.MAX_VALUE);
+        AdjVertex av89 = new AdjVertex(v9, Integer.MAX_VALUE - 10);
         AdjVertex av811 = new AdjVertex(v11, 2);
         v8.adjList.add(av87);
         v8.adjList.add(av85);
         v8.adjList.add(av89);
         v8.adjList.add(av811);
         // v9 adjacency
-        AdjVertex av98 = new AdjVertex(v8, Integer.MAX_VALUE);
+        AdjVertex av98 = new AdjVertex(v8, Integer.MAX_VALUE - 10);
         AdjVertex av96 = new AdjVertex(v6, 1);
         AdjVertex av912 = new AdjVertex(v12, 2);
         v9.adjList.add(av98);
@@ -220,19 +220,28 @@ public class Main {
         
         ArrayList<Vertex> res = dijkstra(g, v1);
 
-        System.out.println("testing path: " + res.get(2).path);
-        System.out.println(res.get(2).val);
+        System.out.println("testing path: " + res.get(5).path);
+        System.out.println(res.get(5).val);
+        for (int i = 0; i < res.size(); ++i)
+        {
+            System.out.println("vertex number: \t" + res.get(i).val + 
+            "\npath: \t" + res.get(i).path);
+            
+        }
+
+
         // Print the path calculated by dijkstra(), assuming zombie is at v1 and player is at v12.
         // print value of player vertex.
         int zombiePos = 1;
         int playerPos = 12;
         System.out.println("Path: ");
         Vertex currVertex = res.get(playerPos - 1);
-        System.out.println(currVertex.val);
-        currVertex = currVertex.path;
+        
+        
         // while the current vertex is not equal to zombie position;
         
-        //printPath(currVertex);
+        printPath(currVertex);
+        //System.out.println(currVertex.val);
             
 
     }
@@ -369,8 +378,6 @@ public class Main {
                     v2 = lst.get(j);
 
                     if (!(parent2.dist == Integer.MAX_VALUE) && parent2.dist + cost < v2.dist)
-
-                    
 
                     {
                         v2.dist = parent2.dist + cost;
